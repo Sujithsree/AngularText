@@ -1,0 +1,35 @@
+<h1>Client Forms</h1>
+<form action="" [formGroup]="ClientProfileForm">
+    <label for="">Client Name : </label>
+    <input type="text" name="name" id="name" formControlName="name" required><br><br>
+    <label for="">Client Email : </label>
+    <input type="email" name="email" id="email" formControlName="email" required><br><br>
+
+    <div class="mb-3">
+      <label for="disabledSelect" class="form-label" >Tags :</label>
+      <select id="disabledSelect" class="form-select w-25" formControlName="tags" required>
+        <option>Select your Tags</option>
+        <option value="VIP">Vip</option>
+        <option value="TRIAL">Trial</option>
+      </select>
+    </div>
+
+    <label for="">Notes : </label>
+    <textarea name="notes" id="notes" formControlName="notes" required>
+        
+    </textarea><br><br>
+    <button type="submit" class="btn btn-primary" [disabled]="!ClientProfileForm.valid" (click)="getDetails()">Submit</button>
+
+    
+</form>
+<br><br>
+
+<hr>
+<div *ngIf="display">
+    <h1>Client List</h1>
+    <h5>Client Id : {{ClientProfileForm.value.id}}</h5>
+    <h5>Client Name : {{ClientProfileForm.value.name}}</h5>
+    <h5>Client Email : {{ClientProfileForm.value.email}}</h5>
+    <h5>Tags : {{ClientProfileForm.value.tags}}</h5>
+    <h5>Notes : {{ClientProfileForm.value.notes}}</h5>
+</div>
