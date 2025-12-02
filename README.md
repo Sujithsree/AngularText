@@ -1,20 +1,19 @@
 # MyApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.1.
+Node Version : v24.11.1
 
-## Development server
 
-To start a local development server, run:
+## Exact storage key used (with seed)
 
-ng serve
-```
+The app uses localStorage to save data.
+You must mention the storage key you used, including the seed value.
+
+localStorage key: client-storage-clientnotes_v21_1234
+
+## Steps to run the project locally
+
+Clearly mention how to start the project for testing.
+ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Form details
-
-Client has submitted by all datas, then after showing in Client Form below the showing datas for client Details.
-
-## Using RouterLink
-
-In this RouterLink use to switch of the multipie router path, i am include in this Navbar session. 
