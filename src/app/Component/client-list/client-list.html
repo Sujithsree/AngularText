@@ -1,1 +1,48 @@
-<h1>Client Lists</h1>
+<h1 class="text-center mb-3">Client List</h1>
+
+<div class="toolbar mb-3">
+  <input
+    type="text"
+    class="form-control"
+    [(ngModel)]="searchText"
+    placeholder="Search by name or email"
+  />
+</div>
+
+<div *ngIf="filteredClients.length > 0; else noClients">
+  <div *ngFor="let client of filteredClients" class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ client.name }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ client.email }}</h6>
+
+      <p class="card-text mb-1">Tags: {{ client.tags.join(', ') }}</p>
+      <p class="card-text mb-2">
+        Created: {{ client.createdAt | date:'short' }}
+      </p>
+
+      <p class="card-text" *ngIf="client.notes.length > 0; else noNote">
+        <strong>Last note:</strong>
+        {{
+          client.notes[client.notes.length - 1].content.length > 40
+            ? (client.notes[client.notes.length - 1].content | slice:0:40) + '...'
+            : client.notes[client.notes.length - 1].content
+        }}
+      </p>
+      <ng-template #noNote>
+        <p class="card-text"><strong>Last note:</strong> (no notes yet)</p>
+      </ng-template>
+
+      <button
+        type="button"
+        class="btn btn-sm btn-outline-danger mt-2"
+        (click)="deleteClient(client.id)"
+      >
+        Delete client
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noClients>
+  <p class="text-center text-muted">No clients found. Try adding one from the form.</p>
+</ng-template>

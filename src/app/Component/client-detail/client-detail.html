@@ -1,1 +1,85 @@
-<h1>Clients Details</h1>
+<h1 class="text-center mb-3">Client Details</h1>
+
+<div *ngIf="clientList.length > 0; else noData" class="details-layout">
+  <!-- Left side: list of clients to pick -->
+  <div class="client-list">
+    <h3 class="h5">Clients</h3>
+    <ul>
+      <li
+        *ngFor="let client of clientList"
+        (click)="selectClient(client)"
+        [class.active]="selectedClient?.id === client.id"
+      >
+        {{ client.name }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Right side: selected client "drawer" -->
+  <div class="client-drawer card shadow-sm" *ngIf="selectedClient">
+    <div class="card-body">
+      <h2 class="card-title h4">{{ selectedClient.name }}</h2>
+      <p class="card-text mb-1"><strong>Email:</strong> {{ selectedClient.email }}</p>
+      <p class="card-text mb-1"><strong>Tags:</strong> {{ selectedClient.tags.join(', ') }}</p>
+      <p class="card-text mb-3"><strong>Created:</strong> {{ selectedClient.createdAt | date:'short' }}</p>
+
+    <!-- Add note -->
+      <div class="add-note mb-3">
+        <h3 class="h5">Add note</h3>
+        <textarea class="form-control mb-2" [(ngModel)]="newNoteText" rows="3"></textarea>
+        <button type="button" class="btn btn-sm btn-primary" (click)="addNote()">
+          Add note
+        </button>
+      </div>
+
+    <!-- Notes list with edit + delete -->
+      <div class="notes">
+        <h3 class="h5 mb-2">Notes ({{ selectedClient.notes.length }})</h3>
+        <ul class="list-unstyled">
+        <li *ngFor="let note of selectedClient.notes">
+          <div *ngIf="editingNoteId !== note.id; else editBlock" class="mb-2">
+            {{ note.content }}
+            <span class="note-date">({{ note.createdAt | date:'short' }})</span>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary ms-2"
+              (click)="startEdit(note.id, note.content)"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-danger ms-1"
+              (click)="deleteNote(note.id)"
+            >
+              Delete
+            </button>
+          </div>
+
+          <ng-template #editBlock>
+            <textarea class="form-control mb-2" [(ngModel)]="editNoteText" rows="2"></textarea>
+            <button
+              type="button"
+              class="btn btn-sm btn-success me-1"
+              (click)="saveEdit()"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              (click)="cancelEdit()"
+            >
+              Cancel
+            </button>
+          </ng-template>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData>
+  <p>No clients yet. Please add one in the form.</p>
+</ng-template>

@@ -1,1 +1,28 @@
 <h1>Client Notes</h1>
+
+<div *ngIf="clients.length > 0; else noClients" class="card">
+  <label>Select client</label>
+  <select [(ngModel)]="selectedClientId">
+    <option *ngFor="let c of clients" [value]="c.id">
+      {{ c.name }} ({{ c.email }})
+    </option>
+  </select>
+
+  <label>Add note</label>
+  <textarea [(ngModel)]="noteText" rows="3"></textarea>
+
+  <button (click)="saveNote()">Save note</button>
+
+  <div *ngIf="selectedClient">
+    <h3>Existing notes</h3>
+    <ul>
+      <li *ngFor="let n of selectedClient.notes">
+        {{ n.content }} <span class="note-date">({{ n.createdAt | date:'short' }})</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #noClients>
+  <p>No clients yet. Please add a client first.</p>
+</ng-template>

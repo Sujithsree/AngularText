@@ -1,0 +1,44 @@
+.details-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.client-list {
+  width: 200px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.client-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.client-list li {
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.client-list li.active {
+  background-color: #e3f2fd;
+  font-weight: 600;
+}
+
+.client-drawer {
+  flex: 1;
+  max-width: 700px;
+}
+
+.add-note textarea {
+  width: 100%;
+}
+
+.notes textarea {
+  width: 100%;
+}
+
+.note-date {
+  color: #666;
+  font-size: 12px;
+  margin-left: 4px;
+}
